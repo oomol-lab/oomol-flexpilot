@@ -30,13 +30,6 @@ export class SessionManager extends vscode.Disposable {
     // Register the session manager
     extensionContext.subscriptions.push(this);
 
-    // Handle the session change
-    this.disposables.push(
-      vscode.authentication.onDidChangeSessions(() =>
-        this.handleSessionChange(),
-      ),
-    );
-
     // Initialize the session manager
     logger.info("Session manager initialized");
   }
@@ -47,7 +40,8 @@ export class SessionManager extends vscode.Disposable {
   public static async register() {
     if (!SessionManager.instance) {
       SessionManager.instance = new SessionManager();
-      SessionManager.instance.handleSessionChange();
+      SessionManager.instance.registerSessionFeatures();
+      // SessionManager.instance.handleSessionChange();
       logger.debug("New SessionManager instance created");
     }
   }

@@ -14,7 +14,7 @@ import { getEol } from "./utilities";
 class InlineChatParticipant {
   private static instance: InlineChatParticipant | null = null;
   private readonly chatParticipant: vscode.ChatParticipant;
-  private readonly githubSession: vscode.AuthenticationSession;
+  // private readonly githubSession: vscode.AuthenticationSession;
 
   /**
    * Private constructor to prevent direct instantiation.
@@ -28,14 +28,11 @@ class InlineChatParticipant {
     );
 
     // Get the GitHub session
-    this.githubSession = storage.session.get();
+    // this.githubSession = storage.session.get();
 
     // Set up requester information
     this.chatParticipant.requester = {
-      name: this.githubSession.account.label,
-      icon: vscode.Uri.parse(
-        `https://avatars.githubusercontent.com/u/${this.githubSession.account.id}`,
-      ),
+      name: "anonymous",
     };
 
     // Set chat participant icon

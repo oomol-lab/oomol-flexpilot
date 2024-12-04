@@ -256,11 +256,6 @@
         "view": "workbench.panel.chat.view.copilot",
         "contents": "$(loading~spin) Please wait while Flexpilot is getting activated",
         "when": "!flexpilot:isError && !flexpilot:isLoaded"
-      },
-      {
-        "view": "workbench.panel.chat.view.copilot",
-        "contents": "Sign in with GitHub to use Flexpilot, your AI pair programmer.\n[Sign In](command:flexpilot.github.signin)",
-        "when": "!flexpilot:isError && flexpilot:isLoaded && !flexpilot:isLoggedIn"
       }
     ],
     "commands": [

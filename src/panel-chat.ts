@@ -14,7 +14,7 @@ import { VariablesManager } from "./variables";
 class PanelChatParticipant {
   private static instance: PanelChatParticipant | null = null;
   private readonly chatParticipant: vscode.ChatParticipant;
-  private readonly githubSession: vscode.AuthenticationSession;
+  // private readonly githubSession: vscode.AuthenticationSession;
 
   /**
    * Private constructor to prevent direct instantiation.
@@ -22,7 +22,7 @@ class PanelChatParticipant {
    */
   private constructor() {
     // Get the GitHub session
-    this.githubSession = storage.session.get();
+    // this.githubSession = storage.session.get();
 
     // Create the chat participant
     this.chatParticipant = vscode.chat.createChatParticipant(
@@ -63,10 +63,10 @@ class PanelChatParticipant {
 
     // Set up requester information
     this.chatParticipant.requester = {
-      name: this.githubSession.account.label,
-      icon: vscode.Uri.parse(
-        `https://avatars.githubusercontent.com/u/${this.githubSession.account.id}`,
-      ),
+      name: "anonymous",
+      // icon: vscode.Uri.parse(
+      //   `https://avatars.githubusercontent.com/u/${this.githubSession.account.id}`,
+      // ),
     };
 
     // Set up help text variables prefix
@@ -219,9 +219,7 @@ class PanelChatParticipant {
     return {
       icon: new vscode.ThemeIcon("flexpilot-default"),
       title: "Ask Flexpilot",
-      message: PanelChatPrompt.getWelcomeMessage(
-        this.githubSession.account.label,
-      ),
+      message: PanelChatPrompt.getWelcomeMessage("anonymous"),
     };
   }
 
