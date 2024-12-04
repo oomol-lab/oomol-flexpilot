@@ -1,0 +1,56 @@
+name: Build VS Code Extension
+
+on:
+  push:
+    branches:
+      - "*"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    name: "Build VS Code Extension"
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          [
+            "win32-arm64",
+            "win32-x64",
+            "linux-arm64",
+            "linux-x64",
+            "linux-armhf",
+            "alpine-x64",
+            "darwin-x64",
+            "darwin-arm64",
+            "alpine-arm64",
+          ]
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Checking Linting
+        run: npm run lint
+
+      - name: Compile Extension
+        run: npm run package -- --target ${{ matrix.platform }}
+
+      - name: Package extension
+        run: npx vsce package --target ${{ matrix.platform }} --out "oopilot-${{ matrix.platform }}.vsix"
+
+      - name: Upload extension vsix as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: "oopilot-${{ matrix.platform }}.vsix"
+          path: "oopilot-${{ matrix.platform }}.vsix"
