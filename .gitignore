@@ -4,6 +4,5 @@ node_modules
 *.vsix
 .DS_Store
 launch_folder
-types/
 extension.vsix
 extension.hash
