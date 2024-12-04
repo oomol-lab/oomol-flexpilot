@@ -1,6 +1,5 @@
 import { CommitMessageCommand } from "./commands/commit-message";
 import { ConfigureModelCommand } from "./commands/configure-model";
-import { GithubSignInCommand } from "./commands/github-sign-in";
 import { StatusIconMenuCommand } from "./commands/status-icon-menu";
 import { events } from "./events";
 import { logger } from "./logger";
@@ -31,7 +30,6 @@ export const activate = async () => {
     // Register the commands
     StatusIconMenuCommand.register();
     CommitMessageCommand.register();
-    GithubSignInCommand.register();
     ConfigureModelCommand.register();
 
     // Handle the session change
