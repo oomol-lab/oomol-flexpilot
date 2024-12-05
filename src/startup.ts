@@ -1,14 +1,5 @@
-import {
-  CommentJSONValue,
-  parse,
-  stringify,
-  type CommentObject,
-} from "comment-json";
-import * as path from "path";
 import * as vscode from "vscode";
 import { logger } from "./logger";
-import { storage } from "./storage";
-import { isFileExists } from "./utilities";
 
 /**
  * Show notification to restart VS Code to apply changes
@@ -76,125 +67,11 @@ const isGitHubCopilotActive = () => {
 };
 
 /**
- * Checks if the argv.json file is outdated and updates it.
- */
-const isArgvJsonOutdated = async () => {
-  // Get the path of the argv.json file from storage
-  let argvPath = storage.get("argv.path");
-  let argvJsonOutdated = false;
-
-  // Check if the argv.json file is outdated and trigger the update
-  if (argvPath && !isFileExists(vscode.Uri.parse(argvPath))) {
-    argvPath = undefined;
-  }
-
-  if (!argvPath) {
-    // Open runtime arguments configuration
-    await vscode.commands.executeCommand(
-      "workbench.action.configureRuntimeArguments",
-    );
-
-    // Find the argv.json file in visible text editors
-    const argvDocument = vscode.window.visibleTextEditors
-      .map((item) => item.document)
-      .filter((item) => path.basename(item.uri.fsPath) === "argv.json")
-      .pop();
-
-    // throw an error if the file is not found
-    if (!argvDocument) {
-      throw new Error("argv.json file not found in visible editors");
-    }
-
-    // Set the argv path in storage
-    argvPath = argvDocument.uri.toString();
-    await storage.set("argv.path", argvPath);
-
-    // Make the argv file active and close it
-    await vscode.window.showTextDocument(argvDocument);
-    await vscode.commands.executeCommand("workbench.action.closeActiveEditor");
-  }
-
-  // Create the URI for the argv.json file
-  const argvFileUri = vscode.Uri.parse(argvPath);
-
-  // Get the extension ID
-  const extensionId = storage.getContext().extension.id;
-  logger.debug(`Extension ID: ${extensionId}`);
-
-  // Parse the argv.json content
-  const buffer = await vscode.workspace.fs.readFile(argvFileUri);
-  const argvJson = parse(Buffer.from(buffer).toString("utf8")) as CommentObject;
-
-  // Add the extension ID to the "enable-proposed-api" array
-  if (Array.isArray(argvJson["enable-proposed-api"])) {
-    if (!argvJson["enable-proposed-api"].includes(extensionId)) {
-      argvJsonOutdated = true;
-      argvJson["enable-proposed-api"].push(extensionId);
-      logger.debug(`Added ${extensionId} to existing array`);
-    } else {
-      logger.debug(`${extensionId} already in array`);
-    }
-  } else if (typeof argvJson["enable-proposed-api"] === "string") {
-    argvJsonOutdated = true;
-    argvJson["enable-proposed-api"] = [
-      argvJson["enable-proposed-api"],
-      extensionId,
-    ] as CommentJSONValue;
-    logger.debug(`Created new array with ${extensionId}`);
-  } else {
-    argvJsonOutdated = true;
-    argvJson["enable-proposed-api"] = [extensionId] as CommentJSONValue;
-    logger.debug(`Created new array with ${extensionId}`);
-  }
-
-  // Add the extension ID to the "log-level" array
-  const logLevel = `${extensionId}=debug`;
-  if (Array.isArray(argvJson["log-level"])) {
-    if (!argvJson["log-level"].includes(logLevel)) {
-      argvJsonOutdated = true;
-      argvJson["log-level"].push(logLevel);
-      logger.debug(`Added ${logLevel} to existing array`);
-    } else {
-      logger.debug(`${logLevel} already in array`);
-    }
-  } else if (typeof argvJson["log-level"] === "string") {
-    argvJsonOutdated = true;
-    argvJson["log-level"] = [
-      argvJson["log-level"],
-      logLevel,
-    ] as CommentJSONValue;
-    logger.debug(`Created new array with ${logLevel}`);
-  } else {
-    argvJsonOutdated = true;
-    argvJson["log-level"] = [logLevel] as CommentJSONValue;
-    logger.debug(`Created new array with ${logLevel}`);
-  }
-
-  // If the argv.json file was updated, write the changes
-  if (argvJsonOutdated) {
-    await vscode.workspace.fs.writeFile(
-      argvFileUri,
-      Buffer.from(stringify(argvJson, null, 4), "utf8"),
-    );
-    logger.info("Successfully updated argv.json");
-  }
-
-  // Return the flag indicating if the argv.json file was updated
-  return argvJsonOutdated;
-};
-
-/**
  * updates the runtime arguments configuration to enable proposed API, log level, etc ...
  */
 export const updateRuntimeArguments = async () => {
   // Initialize the flag to require a restart
   let requireRestart = false;
-
-  // Check if the argv.json file is outdated
-  if (await isArgvJsonOutdated()) {
-    logger.warn("Updated runtime arguments, restart required");
-    requireRestart = true;
-  }
 
   // Check if the proposed API is disabled
   if (await isProposedApiDisabled()) {
