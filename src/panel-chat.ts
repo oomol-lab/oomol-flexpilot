@@ -240,7 +240,7 @@ class PanelChatParticipant {
   ): Promise<vscode.ChatFollowup[]> {
     return location === vscode.ChatLocation.Panel &&
       !token.isCancellationRequested
-      ? [{ prompt: "/help - Get help with Flexpilot commands" }]
+      ? [{ prompt: "/help - Get help with oopilot commands" }]
       : [];
   }
 

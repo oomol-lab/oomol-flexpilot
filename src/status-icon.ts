@@ -58,10 +58,10 @@ class StatusIconManager {
   private initializeStatusBar(): void {
     logger.debug("Initializing status bar");
     this.statusBarItem.accessibilityInformation = {
-      label: "Flexpilot Status",
+      label: "oopilot Status",
     };
-    this.statusBarItem.tooltip = "Flexpilot Status";
-    this.statusBarItem.name = "Flexpilot Status";
+    this.statusBarItem.tooltip = "oopilot Status";
+    this.statusBarItem.name = "oopilot Status";
     this.statusBarItem.command = "flexpilot.status.icon.menu";
     this.statusBarItem.show();
     logger.debug("Status bar initialized");

@@ -223,9 +223,9 @@
     "chatParticipants": [
       {
         "id": "flexpilot.panel.default",
-        "name": "flexpilot",
-        "fullName": "Flexpilot",
-        "description": "Ask Flexpilot or type / for commands",
+        "name": "oopilot",
+        "fullName": "oopilot",
+        "description": "Ask oopilot or type / for commands",
         "isDefault": true,
         "locations": [
           "panel"
@@ -233,9 +233,9 @@
       },
       {
         "id": "flexpilot.editor.default",
-        "name": "flexpilot",
-        "fullName": "Flexpilot",
-        "description": "Ask Flexpilot or type / for commands",
+        "name": "oopilot",
+        "fullName": "oopilot",
+        "description": "Ask oopilot or type / for commands",
         "isDefault": true,
         "locations": [
           "editor"
@@ -296,8 +296,8 @@
       "flexpilot-default": {
         "description": "Flexpilot Default Logo",
         "default": {
-          "fontPath": "assets/fonts.woff",
-          "fontCharacter": "\\e900"
+          "fontPath": "assets/iconfont.woff",
+          "fontCharacter": "\\e602"
         }
       },
       "flexpilot-disabled": {
