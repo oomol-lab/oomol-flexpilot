@@ -287,7 +287,7 @@
         "title": "Status Icon Menu"
       },
       {
-        "command": "flexpilot.reload",
+        "command": "oopilot.reload",
         "enablement": "false",
         "title": "Read storage changes"
       }
