@@ -124,7 +124,7 @@ export class MistralAICompletionModelProvider extends ICompletionModelProvider {
    * @returns {Promise<void>} A promise that resolves when the provider is initialized.
    */
   async initialize(): Promise<void> {
-    this.tokenizer = await Tokenizers.get(this.config.model);
+    // this.tokenizer = await Tokenizers.get(this.config.model);
   }
 
   /**
@@ -132,20 +132,14 @@ export class MistralAICompletionModelProvider extends ICompletionModelProvider {
    * @param {string} text - The text to encode.
    * @returns {Promise<number[]>} A promise that resolves to an array of token ids.
    */
-  readonly encode = async (text: string): Promise<number[]> => {
-    logger.debug(`Encoding text: ${text.substring(0, 50)}...`);
-    return this.tokenizer.encode(text, false);
-  };
+  readonly encode = undefined;
 
   /**
    * Decodes the given tokens into text.
    * @param {number[]} tokens - The tokens to decode.
    * @returns {Promise<string>} A promise that resolves to the decoded text.
    */
-  readonly decode = async (tokens: number[]): Promise<string> => {
-    logger.debug(`Decoding ${tokens.length} tokens`);
-    return this.tokenizer.decode(tokens, false);
-  };
+  readonly decode = undefined;
 
   /**
    * Invokes the Mistral AI completion model.

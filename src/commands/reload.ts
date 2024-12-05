@@ -8,7 +8,7 @@ import { storage } from "../storage";
 export class ReloadCommand {
   static register() {
     storage.getContext().subscriptions.push(
-      vscode.commands.registerCommand("flexpilot.reload", () => {
+      vscode.commands.registerCommand("oopilot.reload", () => {
         InlineChatParticipant.reload();
         PanelChatParticipant.reload();
         events.fire({

@@ -223,8 +223,8 @@ class PanelChatParticipant {
   private async provideWelcomeMessage(): Promise<vscode.ChatWelcomeMessageContent> {
     return {
       icon: new vscode.ThemeIcon("flexpilot-default"),
-      title: "Ask Flexpilot",
-      message: PanelChatPrompt.getWelcomeMessage("anonymous"),
+      title: "Ask OO-Pilot",
+      message: PanelChatPrompt.getWelcomeMessage(this.session.account.label),
     };
   }
 
