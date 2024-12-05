@@ -44,22 +44,6 @@ jobs:
           # Get release version
           RELEASE_VERSION=${GITHUB_REF#refs/tags/}
 
-          # Validate release tag format
-          if ! [[ $RELEASE_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "Error: Invalid release tag format!"
-            echo "Release tag must follow the format: 1.2.3 (MAJOR.MINOR.PATCH)"
-            echo "Got: $RELEASE_VERSION"
-            exit 1
-          fi
-
-          # Validate package.json version format
-          if ! [[ $PKG_VERSION =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
-            echo "Error: Invalid package.json version format!"
-            echo "Version must follow SemVer format: 1.2.3 (MAJOR.MINOR.PATCH)"
-            echo "Got: $PKG_VERSION"
-            exit 1
-          fi
-
           echo "Package.json version: $PKG_VERSION"
           echo "Release version: $RELEASE_VERSION"
 
@@ -94,12 +78,3 @@ jobs:
           files: "oopilot-${{ matrix.platform }}.vsix"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      # - name: Release to VS Code Marketplace
-      #   uses: nick-fields/retry@v3
-      #   with:
-      #     timeout_minutes: 5
-      #     max_attempts: 6
-      #     retry_on: error
-      #     retry_wait_seconds: 10
-      #     command: npx vsce publish --packagePath "oopilot-${{ matrix.platform }}.vsix" -p ${{ secrets.VSCODE_MARKETPLACE_TOKEN }}

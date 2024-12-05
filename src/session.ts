@@ -104,7 +104,7 @@ export class SessionManager extends vscode.Disposable {
    */
   private async handleActiveSession(): Promise<void> {
     logger.info("GitHub session established");
-    if (await storage.get("github.support")) {
+    if (storage.get("github.support")) {
       this.starGitHubRepository();
     } else {
       this.showGithubSupportNotification();
