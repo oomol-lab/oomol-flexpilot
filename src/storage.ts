@@ -99,6 +99,27 @@ class StorageManager {
     },
   };
 
+  /**
+   * Custom session info instead of GitHub.
+   */
+  public customSession = {
+    get: (): vscode.AuthenticationSession | undefined => {
+      if (!this.context) {
+        throw new Error("Storage manager not initialized");
+      }
+      return this.context.globalState.get("customSession");
+    },
+    icon: (): vscode.Uri | undefined => {
+      if (!this.context) {
+        throw new Error("Storage manager not initialized");
+      }
+      const url = this.context.globalState.get("customIcon");
+      if (url) {
+        return vscode.Uri.parse(url as string);
+      }
+    },
+  };
+
   public models = {
     /**
      * Retrieves a value from model providers.

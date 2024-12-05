@@ -14,7 +14,8 @@ import { getEol } from "./utilities";
 class InlineChatParticipant {
   private static instance: InlineChatParticipant | null = null;
   private readonly chatParticipant: vscode.ChatParticipant;
-  // private readonly githubSession: vscode.AuthenticationSession;
+  private readonly session: vscode.AuthenticationSession;
+  private readonly icon: vscode.Uri | undefined;
 
   /**
    * Private constructor to prevent direct instantiation.
@@ -27,12 +28,14 @@ class InlineChatParticipant {
       this.handleChatRequest.bind(this),
     );
 
-    // Get the GitHub session
-    // this.githubSession = storage.session.get();
+    // Get the Custom session
+    this.session = storage.customSession.get() || storage.session.get();
+    this.icon = storage.customSession.icon();
 
     // Set up requester information
     this.chatParticipant.requester = {
-      name: "anonymous",
+      name: this.session.account.label,
+      icon: this.icon,
     };
 
     // Set chat participant icon
@@ -58,6 +61,11 @@ class InlineChatParticipant {
       InlineChatParticipant.instance = new InlineChatParticipant();
       logger.debug("Inline chat participant registered successfully");
     }
+  }
+
+  public static reload() {
+    InlineChatParticipant.dispose();
+    InlineChatParticipant.register();
   }
 
   /**

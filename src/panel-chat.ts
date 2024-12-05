@@ -14,15 +14,17 @@ import { VariablesManager } from "./variables";
 class PanelChatParticipant {
   private static instance: PanelChatParticipant | null = null;
   private readonly chatParticipant: vscode.ChatParticipant;
-  // private readonly githubSession: vscode.AuthenticationSession;
+  private readonly session: vscode.AuthenticationSession;
+  private readonly icon: vscode.Uri | undefined;
 
   /**
    * Private constructor to prevent direct instantiation.
    * Initializes the chat participant with necessary providers and configurations.
    */
   private constructor() {
-    // Get the GitHub session
-    // this.githubSession = storage.session.get();
+    // Get the custom session
+    this.session = storage.customSession.get() || storage.session.get();
+    this.icon = storage.customSession.icon();
 
     // Create the chat participant
     this.chatParticipant = vscode.chat.createChatParticipant(
@@ -63,10 +65,8 @@ class PanelChatParticipant {
 
     // Set up requester information
     this.chatParticipant.requester = {
-      name: "anonymous",
-      // icon: vscode.Uri.parse(
-      //   `https://avatars.githubusercontent.com/u/${this.githubSession.account.id}`,
-      // ),
+      name: this.session.account.label,
+      icon: this.icon,
     };
 
     // Set up help text variables prefix
@@ -93,6 +93,11 @@ class PanelChatParticipant {
       PanelChatParticipant.instance = new PanelChatParticipant();
       logger.debug("Panel chat participant registered successfully");
     }
+  }
+
+  public static reload() {
+    PanelChatParticipant.dispose();
+    PanelChatParticipant.register();
   }
 
   /**

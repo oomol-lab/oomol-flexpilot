@@ -285,6 +285,11 @@
         "command": "flexpilot.status.icon.menu",
         "enablement": "false",
         "title": "Status Icon Menu"
+      },
+      {
+        "command": "flexpilot.reload",
+        "enablement": "false",
+        "title": "Read storage changes"
       }
     ],
     "icons": {
@@ -361,6 +366,7 @@
     "chatParticipantPrivate",
     "chatProvider",
     "chatVariableResolver",
+    "contribSourceControlInputBoxMenu",
     "defaultChatParticipant",
     "terminalExecuteCommandEvent",
     "terminalSelection"

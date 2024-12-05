@@ -1,5 +1,6 @@
 import { CommitMessageCommand } from "./commands/commit-message";
 import { ConfigureModelCommand } from "./commands/configure-model";
+import { ReloadCommand } from "./commands/reload";
 import { StatusIconMenuCommand } from "./commands/status-icon-menu";
 import { events } from "./events";
 import { logger } from "./logger";
@@ -31,6 +32,7 @@ export const activate = async () => {
     StatusIconMenuCommand.register();
     CommitMessageCommand.register();
     ConfigureModelCommand.register();
+    ReloadCommand.register();
 
     // Handle the session change
     SessionManager.register();
