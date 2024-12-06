@@ -1,5 +1,6 @@
 import { CoreMessage, generateText, streamText } from "ai";
 import * as vscode from "vscode";
+import { DefaultSession, ISession } from "./default-session";
 import { IChatResult } from "./interfaces";
 import { logger } from "./logger";
 import { PanelChatPrompt } from "./prompts/panel-chat";
@@ -14,7 +15,7 @@ import { VariablesManager } from "./variables";
 class PanelChatParticipant {
   private static instance: PanelChatParticipant | null = null;
   private readonly chatParticipant: vscode.ChatParticipant;
-  private readonly session: vscode.AuthenticationSession;
+  private readonly session: ISession;
   private readonly icon: vscode.Uri | undefined;
 
   /**
@@ -23,7 +24,7 @@ class PanelChatParticipant {
    */
   private constructor() {
     // Get the custom session
-    this.session = storage.customSession.get() || storage.session.get();
+    this.session = storage.customSession.get() || DefaultSession;
     this.icon = storage.customSession.icon();
 
     // Create the chat participant

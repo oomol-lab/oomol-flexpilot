@@ -1,5 +1,6 @@
 import { streamText } from "ai";
 import * as vscode from "vscode";
+import { DefaultSession, ISession } from "./default-session";
 import { IChatResult } from "./interfaces";
 import { logger } from "./logger";
 import { InlineChatPrompt } from "./prompts/inline-chat";
@@ -14,7 +15,7 @@ import { getEol } from "./utilities";
 class InlineChatParticipant {
   private static instance: InlineChatParticipant | null = null;
   private readonly chatParticipant: vscode.ChatParticipant;
-  private readonly session: vscode.AuthenticationSession;
+  private readonly session: ISession;
   private readonly icon: vscode.Uri | undefined;
 
   /**
@@ -29,7 +30,7 @@ class InlineChatParticipant {
     );
 
     // Get the Custom session
-    this.session = storage.customSession.get() || storage.session.get();
+    this.session = storage.customSession.get() || DefaultSession;
     this.icon = storage.customSession.icon();
 
     // Set up requester information
