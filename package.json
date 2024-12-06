@@ -3,7 +3,7 @@
   "name": "oopilot",
   "displayName": "OOMOL Flexpilot",
   "description": "Open-Source, Native and a True GitHub Copilot Alternative for VS Code",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "icon": "assets/logo.png",
   "license": "GPL-3.0-only",
   "pricing": "Free",
@@ -294,17 +294,17 @@
     ],
     "icons": {
       "flexpilot-default": {
-        "description": "Flexpilot Default Logo",
+        "description": "oopilot Default Logo",
         "default": {
           "fontPath": "assets/iconfont.woff",
           "fontCharacter": "\\e602"
         }
       },
       "flexpilot-disabled": {
-        "description": "Flexpilot Disabled Logo",
+        "description": "oopilot Disabled Logo",
         "default": {
-          "fontPath": "assets/fonts.woff",
-          "fontCharacter": "\\e901"
+          "fontPath": "assets/iconfont.woff",
+          "fontCharacter": "\\e604"
         }
       }
     },
