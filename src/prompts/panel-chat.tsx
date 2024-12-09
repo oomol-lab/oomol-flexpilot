@@ -1,5 +1,6 @@
 import { CoreMessage } from "ai";
 import * as vscode from "vscode";
+import { I18nManager } from "../locales";
 import { logger } from "../logger";
 import {
   Code,
@@ -226,11 +227,12 @@ export class PanelChatPrompt {
    */
   public static getWelcomeMessage(username: string): vscode.MarkdownString {
     logger.debug(`Generating welcome message for user: ${username}`);
+    const i18n = I18nManager.i18n;
+
     return jsxToMarkdown(
       <Message role="user">
         <p>
-          Welcome, <b>@{username}</b>, I'm your pair programmer and I'm here to
-          help you get things done faster.
+          {i18n.t("welcome")}, <b>@{username}</b>, {i18n.t("welcomeTips")}
         </p>
       </Message>,
     );
