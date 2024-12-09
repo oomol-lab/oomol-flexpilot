@@ -190,9 +190,9 @@ class InlineChatParticipant {
       if (storage.workspace.get("flexpilot.inlineChat.showTokenUsage")) {
         const usage = await stream.usage;
         if (usage.completionTokens && usage.promptTokens) {
-          response.warning(
-            `Prompt Tokens: ${usage.promptTokens}, Completion Tokens: ${usage.completionTokens}`,
-          );
+          // response.warning(
+          //   `Prompt Tokens: ${usage.promptTokens}, Completion Tokens: ${usage.completionTokens}`,
+          // );
         }
       }
 

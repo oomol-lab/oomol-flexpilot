@@ -182,9 +182,9 @@ class PanelChatParticipant {
       if (storage.workspace.get("flexpilot.panelChat.showTokenUsage")) {
         const usage = await stream.usage;
         if (usage.completionTokens && usage.promptTokens) {
-          response.warning(
-            `Prompt Tokens: ${usage.promptTokens}, Completion Tokens: ${usage.completionTokens}`,
-          );
+          // response.warning(
+          //   `Prompt Tokens: ${usage.promptTokens}, Completion Tokens: ${usage.completionTokens}`,
+          // );
         }
       }
 
@@ -224,7 +224,7 @@ class PanelChatParticipant {
   private async provideWelcomeMessage(): Promise<vscode.ChatWelcomeMessageContent> {
     return {
       icon: new vscode.ThemeIcon("flexpilot-default"),
-      title: "Ask oopilot",
+      title: "Ask oomol",
       message: PanelChatPrompt.getWelcomeMessage(this.session.account.label),
     };
   }

@@ -3,7 +3,7 @@
   "name": "oopilot",
   "displayName": "OOMOL Flexpilot",
   "description": "Open-Source, Native and a True GitHub Copilot Alternative for VS Code",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "icon": "assets/logo.png",
   "license": "GPL-3.0-only",
   "pricing": "Free",
@@ -225,7 +225,7 @@
         "id": "flexpilot.panel.default",
         "name": "oopilot",
         "fullName": "oopilot",
-        "description": "Ask oopilot or type / for commands",
+        "description": "Ask oomol or type / for commands",
         "isDefault": true,
         "locations": [
           "panel"
@@ -235,7 +235,7 @@
         "id": "flexpilot.editor.default",
         "name": "oopilot",
         "fullName": "oopilot",
-        "description": "Ask oopilot or type / for commands",
+        "description": "Ask oomol or type / for commands",
         "isDefault": true,
         "locations": [
           "editor"
