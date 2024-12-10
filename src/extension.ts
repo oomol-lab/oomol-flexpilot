@@ -1,4 +1,5 @@
 import * as vscode from "vscode";
+import { I18nManager } from "./locales";
 import { logger } from "./logger";
 import { storage } from "./storage";
 
@@ -25,7 +26,8 @@ export async function activate(context: vscode.ExtensionContext) {
   // Initialize the storage manager
   storage.setContext(context);
 
-  logger.info("Language:", vscode.env.language);
+  await I18nManager.crate(vscode.env.language);
+  logger.info("I18nManager initialized with locale:", vscode.env.language);
 
   // Register the logger with the context
   context.subscriptions.push(logger);
