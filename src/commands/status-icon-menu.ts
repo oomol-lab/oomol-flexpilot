@@ -135,18 +135,10 @@ export class StatusIconMenuCommand {
         },
       },
       {
-        label: "$(chat-editor-label-icon) Open Flexpilot Chat",
+        label: "$(chat-editor-label-icon) Open Chat",
         handler: async () => {
           vscode.commands.executeCommand(
             "workbench.panel.chat.view.copilot.focus",
-          );
-        },
-      },
-      {
-        label: "$(remote-explorer-documentation) View Flexpilot Docs...",
-        handler: async () => {
-          vscode.env.openExternal(
-            vscode.Uri.parse("https://docs.flexpilot.ai"),
           );
         },
       },
