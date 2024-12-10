@@ -2,6 +2,7 @@ import { CoreMessage, generateText, streamText } from "ai";
 import * as vscode from "vscode";
 import { DefaultSession, ISession } from "./default-session";
 import { IChatResult } from "./interfaces";
+import { I18nManager } from "./locales";
 import { logger } from "./logger";
 import { PanelChatPrompt } from "./prompts/panel-chat";
 import { ModelProviderManager } from "./providers";
@@ -222,9 +223,10 @@ class PanelChatParticipant {
    * @returns {Promise<vscode.ChatWelcomeMessageContent>} The welcome message content.
    */
   private async provideWelcomeMessage(): Promise<vscode.ChatWelcomeMessageContent> {
+    const i18n = I18nManager.i18n;
     return {
       icon: new vscode.ThemeIcon("flexpilot-default"),
-      title: "Ask OOMOL",
+      title: i18n.t("askOOMOL"),
       message: PanelChatPrompt.getWelcomeMessage(this.session.account.label),
     };
   }
