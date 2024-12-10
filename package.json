@@ -3,7 +3,7 @@
   "name": "oopilot",
   "displayName": "OOMOL Flexpilot",
   "description": "Open-Source, Native and a True GitHub Copilot Alternative for VS Code",
-  "version": "0.1.8",
+  "version": "0.1.9",
   "icon": "assets/logo.png",
   "license": "GPL-3.0-only",
   "pricing": "Free",
@@ -223,8 +223,8 @@
     "chatParticipants": [
       {
         "id": "flexpilot.panel.default",
-        "name": "oopilot",
-        "fullName": "oopilot",
+        "name": "OOMOL",
+        "fullName": "OOMOL",
         "description": "%chat.panel.description%",
         "isDefault": true,
         "locations": [
@@ -233,8 +233,8 @@
       },
       {
         "id": "flexpilot.editor.default",
-        "name": "oopilot",
-        "fullName": "oopilot",
+        "name": "OOMOL",
+        "fullName": "OOMOL",
         "description": "%chat.panel.description%",
         "isDefault": true,
         "locations": [
