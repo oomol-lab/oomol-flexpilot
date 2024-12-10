@@ -6,3 +6,4 @@ node_modules
 launch_folder
 extension.vsix
 extension.hash
+l10n/bundle.l10n.json
