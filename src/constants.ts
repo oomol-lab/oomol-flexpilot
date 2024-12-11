@@ -28,6 +28,12 @@ export const ALLOWED_COMPLETION_MODELS = [
     tokenizerUrl:
       "https://cdn.jsdelivr.net/gh/flexpilot-ai/vscode-extension/tokenizers/cl100k_base.json",
   },
+  {
+    regex: "Qwen/Qwen2.5-Coder-32B-Instruct",
+    contextWindow: 31500,
+    tokenizerUrl:
+      "https://cdn.jsdelivr.net/gh/flexpilot-ai/vscode-extension/tokenizers/cl100k_base.json",
+  },
 ];
 
 /**

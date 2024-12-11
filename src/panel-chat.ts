@@ -119,7 +119,9 @@ class PanelChatParticipant {
     try {
       // Create an abort controller for the chat request
       const abortController = new AbortController();
+
       token.onCancellationRequested(() => {
+        logger.debug("Chat request cancelled");
         abortController.abort();
       });
 
@@ -206,6 +208,7 @@ class PanelChatParticipant {
       };
     } catch (error) {
       // Log and return error response
+
       logger.error(error as Error);
       // logger.notifyError("Error processing `Panel Chat` request");
       return {
