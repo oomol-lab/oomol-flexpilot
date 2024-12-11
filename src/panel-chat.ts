@@ -207,7 +207,7 @@ class PanelChatParticipant {
     } catch (error) {
       // Log and return error response
       logger.error(error as Error);
-      logger.notifyError("Error processing `Panel Chat` request");
+      // logger.notifyError("Error processing `Panel Chat` request");
       return {
         metadata: {
           response: "Unable to process request",
