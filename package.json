@@ -3,7 +3,7 @@
   "name": "oopilot",
   "displayName": "OOMOL Flexpilot",
   "description": "Open-Source, Native and a True GitHub Copilot Alternative for VS Code",
-  "version": "0.1.11",
+  "version": "0.1.12",
   "icon": "assets/logo.png",
   "license": "GPL-3.0-only",
   "pricing": "Free",
