@@ -3,7 +3,7 @@ import { logger } from "./logger";
 import { ModelProviderManager } from "./providers";
 import { statusIcon } from "./status-icon";
 import { storage } from "./storage";
-import { getLanguageConfig } from "./utilities";
+import { getLanguageConfig, Queue } from "./utilities";
 
 /**
  * InlineCompletionProvider class provides inline completion functionality for the active document.
@@ -108,6 +108,17 @@ class InlineCompletionProvider implements vscode.InlineCompletionItemProvider {
     });
   }
 
+  private readonly queue = new Queue<vscode.InlineCompletionList>(500);
+  private async generateCompletions(
+    document: vscode.TextDocument,
+    position: vscode.Position,
+    abortController: AbortController,
+  ): Promise<vscode.InlineCompletionList> {
+    return this.queue.enqueue(() =>
+      this.doGenerateCompletions(document, position, abortController),
+    );
+  }
+
   /**
    * Generates completions for the current document.
    * @param {vscode.TextDocument} document - The current document.
@@ -115,7 +126,7 @@ class InlineCompletionProvider implements vscode.InlineCompletionItemProvider {
    * @param {AbortController} abortController - The abort controller for the operation.
    * @returns {Promise<vscode.InlineCompletionList>} A list of inline completions.
    */
-  private async generateCompletions(
+  private async doGenerateCompletions(
     document: vscode.TextDocument,
     position: vscode.Position,
     abortController: AbortController,
