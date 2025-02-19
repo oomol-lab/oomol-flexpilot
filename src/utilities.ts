@@ -426,3 +426,49 @@ const LANGUAGES: { [key: string]: ILanguageConfig } = {
     comment: { start: "/* ", end: " */" },
   },
 };
+
+interface ITask<T> {
+  factory: () => Promise<T>;
+  resolve: (value: T) => void;
+  reject: (reason?: unknown) => void;
+}
+
+// Debounce an async function.
+export class Queue<T> {
+  private queue: ITask<T>[] = [];
+  private pending = false;
+
+  constructor(private readonly delay: number) {}
+
+  async enqueue(factory: () => Promise<T>): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
+      this.queue.push({ factory, resolve, reject });
+      if (!this.pending) {
+        this.pending = true;
+        setTimeout(() => this.consume(), this.delay);
+      }
+    });
+  }
+
+  private consume() {
+    const { queue } = this;
+    this.queue = [];
+    const latest = queue.pop();
+    queue.forEach((task) => task.resolve([] as T));
+    if (latest) {
+      const promise = latest.factory();
+      promise.then(latest.resolve, latest.reject);
+      promise.then(
+        () => this.consumed(),
+        () => this.consumed(),
+      );
+    }
+    this.pending = false;
+  }
+
+  private consumed() {
+    if (this.queue.length) {
+      setTimeout(() => this.consume(), this.delay);
+    }
+  }
+}
